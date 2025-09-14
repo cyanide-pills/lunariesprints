@@ -1,0 +1,274 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: rgb(219, 233, 236);
+}
+
+
+::-webkit-scrollbar {
+    width: 0;  
+    background: transparent; 
+}
+
+
+body h1{
+    font-family: 'Playfair Display', serif;
+    font-weight: 100;
+    line-height: 1;
+}
+
+body p{
+    font-family: 'Karla', sans-serif;
+}
+
+body button{
+    font-family: 'Karla', sans-serif;
+
+}
+
+body a {
+    font-family: 'Karla', sans-serif;
+    font-weight: 300;
+    font-size: 13px;
+    text-decoration: none;
+    color: black;
+}
+
+main {
+    display: flex;
+    flex-direction: column;
+    margin: 0 auto;
+    width: 80%;
+}
+
+header, .main-timeline, footer{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    background-color: rgb(255, 255, 255);
+    display:flex;
+
+}
+
+
+
+header {
+    margin-bottom: 20px;
+    padding:1.2rem 2rem;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+}
+
+.title-logo {
+    display: flex;
+    justify-content: space-between;
+
+}
+
+.title-logo button img {
+    height: 60px;
+    width: auto;
+    
+}
+
+.title-logo h1{
+    font-size: 25px;
+}
+
+.title-logo button{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap:0.5rem;
+    background: none;
+    border: none;
+}
+
+.user-options{
+    display: flex;
+    gap:1rem;
+    align-items: center;
+    
+}
+
+.user-options button img{
+    height: 20px;
+    width: auto;
+}
+
+.nav-menu {
+    margin-top:15px;
+    display: flex;
+    justify-content: space-between;
+}
+
+
+
+
+footer {
+    margin-top: auto;
+    height:160px;
+    padding:1.2rem 2rem;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+}
+
+
+.main-timeline {
+    margin-bottom: 20px;
+    padding:2rem;
+    display: flex;
+    flex-direction: column;
+    box-sizing: border-box;
+    align-items: center;
+
+}
+
+
+
+.display-preview{
+    width:100%;
+    position: relative; 
+    height: 400px;
+    overflow: hidden;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    padding-left: 2rem;
+    padding-right: 2rem;
+    box-sizing: border-box;
+    color: rgb(255, 255, 255);
+    z-index: 1;
+
+    .banner-image img {
+        position: absolute; 
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        filter:  blur(3px) brightness(40%) contrast(70%);
+        z-index: -1;
+    }
+}
+
+
+.video-display{
+    margin-top:2rem;
+    width:100%;
+    display: flex;
+    align-items: center;
+    gap:2rem;
+    box-sizing: border-box;
+    padding:2rem 1rem;
+    overflow: hidden;
+}
+
+
+.product-preview {
+    padding:1.5rem;
+    width:100%;
+
+}
+
+.item-list{
+    gap:3rem;
+    display: flex;
+    flex-direction: row;
+    box-sizing: border-box;
+    overflow: hidden;
+    scroll-behavior: smooth;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    padding:1rem;
+}
+
+.print-product{
+    width:240px;
+    border:none;
+    padding:1rem;
+    text-align: left;
+    text-wrap: wrap;
+    background-color: rgb(219, 233, 236);
+    border-radius:10px;
+
+}
+
+.print-product img {
+    width: 200px;
+    height:240px;
+    object-fit: cover;
+}
+
+
+.print-info{
+    margin-top:0.5rem;
+    line-height: 1;
+}
+
+.scrolling-buttons{
+    display: flex;
+    justify-content: space-between;
+    position: relative;
+    top:140px;
+    
+}
+
+.scrolling-buttons button{
+    position: relative;
+    background-color: transparent;
+    margin:-40px;
+    border: none;
+    
+}
+
+.scrolling-buttons  img{
+    width:20px;
+}
+
+#scroll-left img {
+    width:20px;
+    transform: scaleX(-1);
+}
+
+
+
+
+
+
+.sign-in{
+    width:80%;
+    height:100%;
+    background-color: rgb(255, 255, 255);
+    padding:1rem;
+    box-sizing: border-box;
+}
+
+.sign-in h1{
+    font-size: 30px;
+    font-family: Playfair Display, serif;
+    margin-bottom: 1rem;
+}
+
+.form-group{
+    font-family: Karla, sans-serif;
+    margin-bottom: 15px;
+
+}
+
+#form button {
+    box-sizing: border-box;
+    margin: 1rem 0rem;
+    display: block;
+    margin-left: auto;
+
+}
+
+
