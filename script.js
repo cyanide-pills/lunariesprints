@@ -67,7 +67,6 @@ function validateEmail(input, minLength = 1, maxLength = 100) {
   return valid;
 }
 
-
 function showSignIn() {
   const form = document.getElementById("form");
   if (!form) return; 
@@ -111,14 +110,14 @@ function showSignIn() {
 
 function showPrints() {
   const itemList = document.getElementById('item-list');
-  if (!itemList) return; // <- stops if we’re not on the homepage
+  if (!itemList) return; 
 
   let itemsHTML = '';
 
   items.forEach((item, index) => {
     itemsHTML += `
-      <button class="print-product" data-index="${index}">
-            <img src="${item.image}" class="print-image">
+      <button onclick="viewProduct(${index})" class="print-product">
+            <img src="${item.image}" id="print-image">
             <div class="print-info">
                 <p class="print-name">${item.title}</p>
                 <p>${item.price} CLP</p>
@@ -145,9 +144,40 @@ function showPrints() {
   }
 }
 
+function viewProduct(index) {
+  localStorage.setItem("selectedProduct", JSON.stringify(items[index]));
+  window.location.href = "product.html";
+}
+
+function productFill(){
+
+  const product = JSON.parse(localStorage.getItem("selectedProduct"));    if (product) {
+  const prodDet = document.getElementById('product-details');
+  if (!prodDet) return; 
+
+  document.getElementById("product-image").src = product.image;
+  document.getElementById("product-title").textContent = product.title;
+  document.getElementById("product-artist").textContent = "Artista: " + product.artist;
+  document.getElementById("product-description").textContent = product.descripcion;
+  document.getElementById("product-dimensions").textContent = "Dimensiones: " + product.dimensiones;
+  document.getElementById("product-price").textContent = product.price + " CLP";
+  } else {
+  document.body.innerHTML = "<p>Producto no encontrado.</p>";
+  }
+
+}
+
+function addToCart() {
+  const addPrice= document.getElementById('price').textContent
+  const printName = document.querySelector('.product-details h2').textContent
+  cartItem.push({'product-title':printName, 'product-price':addPrice})
+  console.log(cartItem)
+}
 
 
 document.addEventListener("DOMContentLoaded", () => {
   showPrints();
   showSignIn();
+  productFill();
+
 });

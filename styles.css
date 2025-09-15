@@ -271,4 +271,29 @@ footer {
 
 }
 
+.product-container{
+    width:100%;
+    overflow:hidden;
+    
+}
 
+.product-details{
+    display:flex;
+    width:100%;
+    flex-wrap: wrap;
+    height: 100%;
+    flex-direction:row;
+    gap:2rem;
+    justify-content:center;
+
+}
+
+.product-text{
+    width:40vw;
+}
+
+#product-image {
+    object-fit:contain;
+    width:25vw;
+
+}
