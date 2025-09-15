@@ -394,6 +394,37 @@ function checkoutValidation() {
 }
 
 
+function showMSG() {
+  const form = document.getElementById("form");
+  if (!form) return; 
+
+  const nameInput = document.getElementById("name");
+  const emailInput = document.getElementById("mail");
+  const msgInput = document.getElementById("msg");
+
+  if (nameInput) nameInput.addEventListener("input", () => validateLength(nameInput, 5, 100));
+  if (emailInput) emailInput.addEventListener("input", () => validateEmail(emailInput));
+  if (msgInput) msgInput.addEventListener("input", () => validateLength(msgInput, 1, 200));
+
+  form.addEventListener("submit", function (e) {
+    let valid = true;
+
+    if (!nameInput.value.trim()) valid = false;
+    if (!emailInput.value.trim()) valid = false;
+    if (!msgInput.value.trim()) valid = false;
+
+    if (nameInput && !validateLength(nameInput, 5, 100)) valid = false;
+    if (emailInput && !validateEmail(emailInput)) valid = false;
+    if (msgInput && !validateLength(numberInput, 1, 200)) valid = false;
+
+    if (!valid) {
+      e.preventDefault();
+    } else {
+      e.preventDefault();
+    }
+  });
+}
+
 
 
 document.addEventListener("DOMContentLoaded", () => {
