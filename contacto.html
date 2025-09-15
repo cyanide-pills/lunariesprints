@@ -1,4 +1,4 @@
-    <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -16,7 +16,7 @@
 
 <body>
     <main>
-                <header>
+            <header>
             <div class="title-logo">
                 <button onclick="window.location.href='index.html'"><img src="images/icons/lunaries.png">
                     <h1>lunaries prints</h1> 
@@ -40,37 +40,44 @@
 
         </header>
 
-        <div class="main-timeline">
-            <div class="log-in" id="log-in">
 
-                <h1>Inicia sesión para continuar</h1>
+        <div class="main-timeline">
 
                 <form id="form" novalidate>
 
                     <div class="form-group">
                         <label for="email">Correo Electrónico</label>
-                        <input type="email" class="form-control" id="email" placeholder="usuario@email.com" required>
+                        <input type="email" class="form-control" id="mail" placeholder="usuario@email.com" required>
                         <div class="invalid-feedback" id="emailError">
 
                         </div>
                     </div>
 
-                    <div class="form-group" >
-                        <label for="passwd">Contraseña</label>
-                        <input type="text" class="form-control" id="passwd" required>
+
+                    <div class="form-group">
+                        <label for="name">Nombre Completo</label>
+                        <input type="text" class="form-control" id="msgname" required>
                         <div class="invalid-feedback">
-                            Debe ingresar entre 4 a 10 caracteres.
+                            Debe ingresar al menos 5 caracteres.
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="passwd">Mensaje</label>
+                        <input type="text" class="form-control" id="masg" required>
+                        <div class="invalid-feedback">
+                            Debe un mensaje.
                         </div>
                     </div>
 
-                    <button id="signin-submit" type= submit class="btn btn-primary">Iniciar Sesión</button>
 
 
-            </div>
+                    <button id="signin-submit" type= submit class="btn btn-primary"> Crear Cuenta</button>
+
+                </form>
 
         </div>
 
-        
         <footer>
             <div class="footer-intro">
                 <div class="title-logo">
@@ -119,14 +126,3 @@
 
 
 </html>
-
-
-    
-    
-    
-    
-    
-    
-    
-    
-    

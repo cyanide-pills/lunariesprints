@@ -220,6 +220,8 @@ function productFill(){
 
 }
 
+
+
 function showBlogs() {
   const blogsHTML = blogs.map((blog, index) => `
     <button onclick="viewBlog(${index})" class="blog-item" data-index="${index}">
@@ -293,6 +295,8 @@ function displayCart() {
   cartDisplay.innerHTML = cartHTML;
   cartTotal.innerText = `Total: ${cartAmount} CLP`;
 }
+
+
 
 function saveSignInINFO() {
   let userEmail = document.getElementById("email").value || "";
