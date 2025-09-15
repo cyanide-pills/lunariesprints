@@ -11,7 +11,8 @@ const items = [
     price: 20000,
     artist: "Gustave Doré",
     dimensiones: "20x24",
-    descripcion: "Lorem ipsum dolor sit amet, consectetur adipiscing elit..."
+    descripcion: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. ",
+    year: 1855 
   },
   {
     title: "The lantern bearers",
@@ -19,7 +20,9 @@ const items = [
     price: 20000,
     artist: "Maxfield Parrish",
     dimensiones: "20x24",
-    descripcion: "Lorem ipsum dolor sit amet, consectetur adipiscing elit..."
+    descripcion: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. ",
+    year: 1855 
+
   },
   {
     title: "The cactus lover",
@@ -27,9 +30,26 @@ const items = [
     price: 20000,
     artist: "Carl Spitzweg",
     dimensiones: "20x24",
-    descripcion: "Lorem ipsum dolor sit amet, consectetur adipiscing elit..."
+    descripcion: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. ",
+    year: 1855 
   }
 ];
+const blogs = [
+  {
+    title: "Datos curiosos de pintores famosos",
+    info: "Descubre datos interesantes sobre pintores famosos y sus obras maestras.",
+    content: "Van Gogh: vendió solo un cuadro en vida, pintó más de 900 obras y a veces comía sus pinturas.  \n\nPicasso: nombre de 23 palabras, dibujaba antes de hablar, más de 50,000 obras.\n\n Da Vinci: escribía al revés, diseñó inventos adelantados a su tiempo, vegetariano. \n\nMonet: obsesionado con la luz, pintaba el mismo paisaje a distintas horas, tenía cataratas.\n\n Dalí: bigote extravagante, conferencias en traje de buzo, paseaba un oso hormiguero.\n\n Frida Kahlo: sobrevivió a accidente grave, plasmó su dolor en arte colorido y surrealista, cejas y bigote parte de su identidad.",
+    image: "images/paintings/gogh1.jpg",
+    date:"10/09/2025"
+  },
+  {
+    title: "Estilos de arte a través de la historia",
+    info: "Descubre estilos de arte a través del tiempo.",
+    content: "Impresionismo: captura luz y color cambiantes con pinceladas rápidas. \n\nSurrealismo: mezcla realidad y sueños, lo irracional y lo subconsciente.\n\n Cubismo: descompone objetos en formas geométricas y múltiples perspectivas. \n\nRealismo: representa la vida cotidiana con detalle y exactitud.\n\n Expresionismo: refleja emociones intensas y subjetivas a través del color y la forma. \n\nBarroco: dramático, detallado y lleno de movimiento y contraste. \n\nRenacimiento: equilibrio, proporción y perspectiva, centrado en la figura humana y la naturaleza.",
+    image: "images/paintings/spitzweg1.jpg",
+    date:"13/09/2025"
+
+}];
 
 
 function validateLength(input, minLength, maxLength) {
@@ -157,27 +177,187 @@ function productFill(){
 
   document.getElementById("product-image").src = product.image;
   document.getElementById("product-title").textContent = product.title;
+  document.getElementById("product-year").textContent = product.year;
   document.getElementById("product-artist").textContent = "Artista: " + product.artist;
   document.getElementById("product-description").textContent = product.descripcion;
   document.getElementById("product-dimensions").textContent = "Dimensiones: " + product.dimensiones;
-  document.getElementById("product-price").textContent = product.price + " CLP";
-  } else {
-  document.body.innerHTML = "<p>Producto no encontrado.</p>";
+  document.getElementById("product-price").textContent = product.price ;
   }
 
 }
 
+function showBlogs() {
+  const blogsHTML = blogs.map((blog, index) => `
+    <button onclick="viewBlog(${index})" class="blog-item" data-index="${index}">
+      <article class="blog-post">
+        <img class="blog-image" src="${blog.image}">
+        <div class="blog-text">
+          <h2 class="title">${blog.title}</h2>
+          <p>${blog.info}</p>
+        </div>
+      </article>
+    </button>
+  `).join('');
+
+  document.querySelector('.blogs-display').innerHTML = blogsHTML;
+}
+
+function viewBlog(index) {
+  localStorage.setItem("selectedBlog", JSON.stringify(blogs[index]));
+  window.location.href = "entry.html";
+}
+
+function entryFill() {
+  const blog = JSON.parse(localStorage.getItem("selectedBlog"));
+  if (blog) {
+    document.getElementById("blog-image").src = blog.image;
+    document.getElementById("blog-title").textContent = blog.title;
+    document.getElementById("blog-date").textContent = blog.date;
+    document.getElementById("blog-content").innerHTML = blog.content.replace(/\n/g, "<br>");
+  }
+}
+
 function addToCart() {
-  const addPrice= document.getElementById('price').textContent
-  const printName = document.querySelector('.product-details h2').textContent
-  cartItem.push({'product-title':printName, 'product-price':addPrice})
-  console.log(cartItem)
+  const product = JSON.parse(localStorage.getItem("selectedProduct"));
+  if (!product) return;
+
+  let cartItem = JSON.parse(localStorage.getItem("cartItem")) || [];
+
+  cartItem.push(product);
+
+  localStorage.setItem("cartItem", JSON.stringify(cartItem));
+
+  alert("Producto agregado al carrito!");
+}
+
+function displayCart() {
+  const cartDisplay = document.getElementById('cart-display');
+  const cartTotal = document.getElementById('cart-total');
+
+  if (!cartDisplay || !cartTotal) return; 
+
+  let cartItem = JSON.parse(localStorage.getItem("cartItem")) || [];
+
+  let cartHTML = '';
+  let cartAmount = 0;
+
+  cartItem.forEach(item => {
+    cartHTML += `<article class="cart-item">
+                    <div class="cart-image"> 
+                      <img src= "${item.image}"> </img>
+                    </div>
+                    <div class="cart-text">
+                      <p id="precio">${item.title} </p>
+                      <p>${item.price} CLP</p>
+                    </div>
+                 </article>`;
+    cartAmount += parseInt(item.price);
+  });
+
+  cartDisplay.innerHTML = cartHTML;
+  cartTotal.innerText = `Total: ${cartAmount} CLP`;
+}
+
+function saveSignInINFO() {
+  let userEmail = document.getElementById("email").value || "" ;
+  let userPasswd = document.getElementById("passwd").value|| "";
+  let userName = document.getElementById("name").value|| "";
+  let userNumber = document.getElementById("number").value|| "";
+  let userAddress = document.getElementById("address").value|| "";
+
+  allUser.push({'email': userEmail, 'passwd': userPasswd, 'name': userName, 'number': userNumber, 'address': userAddress});
+  console.log(allUser);
+
+}
+
+function showLogIn() {
+  const form = document.getElementById("form"); 
+  const emailInput = document.getElementById("email");
+  const passwdInput = document.getElementById("passwd");
+
+  if (emailInput) emailInput.addEventListener("input", () => validateEmail(emailInput));
+  if (passwdInput) passwdInput.addEventListener("input", () => validateLength(passwdInput, 4, 10));
+
+  form.addEventListener("submit", function (e) {
+    e.preventDefault();
+    let valid = true; 
+
+    if (!emailInput.value.trim()) valid = false;
+    if (!passwdInput.value.trim()) valid = false;
+
+    if (emailInput && !validateEmail(emailInput)) valid = false;
+    if (passwdInput && !validateLength(passwdInput, 4, 10)) valid = false;
+
+
+    const email = emailInput.value.trim();
+    const passwd = passwdInput.value.trim();
+
+    const user = allUser.find(u => u.email === email && u.passwd === passwd);
+
+    if (!user) {
+      alert("Datos ingresados son incorrectos o la cuenta no existe.");
+      return;
+    }
+    loggedUser = [user]; 
+
+    alert("Ha iniciado sesión!");
+  });
 }
 
 
+function checkoutValidation() {
+  if (loggedUser.length === 0) {
+    alert("Debe iniciar sesión para continuar con la compra.");
+    return;
+  }
+
+  if (cartItem.length === 0) {
+    alert("Su carrito está vacío.");
+    return;
+  }
+
+  const user = loggedUser[0]; 
+  const modal = document.getElementById('purchase-modal');
+  const userInfoDiv = document.getElementById('user-info-modal');
+  const cartSummary = document.getElementById('cart-summary');
+
+  userInfoDiv.innerHTML = `
+    <p>Nombre: ${user.name || "No disponible"}</p>
+    <p>Email: ${user.email}</p>
+    <p>Teléfono: ${user.number || "No disponible"}</p>
+    <p>Dirección: ${user.address || "No disponible"}</p>
+  `;
+
+  let totalAmount = 0;
+  cartItem.forEach(i => totalAmount += parseInt(i['product-price']));
+  cartSummary.textContent = `Total a pagar: ${totalAmount} CLP`;
+
+  modal.style.display = "block";
+
+  document.getElementById('close-modal').onclick = () => modal.style.display = "none";
+
+  document.getElementById('confirm-purchase').onclick = () => {
+    alert("Compra realizada con éxito!");
+    cartItem = [];
+    displayCart();
+    modal.style.display = "none";
+  };
+
+  window.onclick = function(event) {
+    if (event.target == modal) modal.style.display = "none";
+  }
+}
+
+
+
 document.addEventListener("DOMContentLoaded", () => {
-  showPrints();
-  showSignIn();
-  productFill();
+  if (document.getElementById("item-list")) showPrints();
+  if (document.getElementById("sign-in")) showSignIn();
+  if (document.getElementById("product-details")) productFill();
+  if (document.querySelector(".blogs-display")) showBlogs();
+  if (document.getElementById("blog-details")) entryFill();
+  if (document.getElementById("cart-display")) displayCart();
+  if (document.getElementById("log-in")) showLogIn();
+
 
 });

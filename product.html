@@ -16,7 +16,7 @@
 
 <body>
     <main>
-        <header>
+                <header>
             <div class="title-logo">
                 <button onclick="window.location.href='index.html'"><img src="images/icons/lunaries.png">
                     <h1>lunaries prints</h1> 
@@ -25,33 +25,47 @@
                 <nav class="user-options">
                     <a href="sign_in.html">registrate</a>
                     <a href="log_in.html">inicia sesión</a>
-                    <button><img src="images/icons/cart.png"></button>
+                    <button onclick="displayCart()"><img src="images/icons/cart.png"></button>
                 </nav>
             </div>
 
             <nav class="nav-menu">
                 
                 <a href="index.html">inicio</a>
-                <a href="about.html">productos</a>
-                <a href="gallery.html">blogs</a>
-                <a href="contact.html">sobre nosotros</a>
+                <a href="all_products.html">productos</a>
+                <a href="blogs.html">blogs</a>
+                <a href="about.html">sobre nosotros</a>
 
             </nav>
 
         </header>
 
+
         <div class="main-timeline">
           
           <div class="product-container">
             <div class="product-details" id="product-details">
-              <img id="product-image" />
-              <div class="product-text">
-                <h1 id="product-title"></h1>
-                <p id="product-artist"></p>
-                <p id="product-description"></p>
-                <p id="product-dimensions"></p>
-                <p id="product-price"></p>
-              </div>
+                <div class="image-details">
+
+                <img id="product-image" />
+                    <div class="image-previews">
+                        <img src="images/mockup/frame_detail.jpg">
+                        <img src="images/mockup/frame_placeholder.jpg">
+                        <img src="images/mockup/frame_placeholder_3.jpg">
+                    </div>
+                </div>
+
+                <div class="product-text">
+                    <h1 id="product-title"></h1>
+                    <p id="product-year"></p>
+                    <p id="product-artist"></p>
+                    <p id="product-description"></p>
+                    <p id="product-dimensions"></p>
+                    <p id="product-price"> </p> 
+                    
+                    <div class="carrito">
+                    <button onclick="addToCart()" class="cart-button">Añadir al Carro</button></div>
+                </div>
             </div>  
           </div>
 
