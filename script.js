@@ -6,6 +6,33 @@ let loggedUser = [];
 const items = [
 
   {
+    title: "Woman with a parasol",
+    image: "images/paintings/woman_with_a_parasol.jpg",
+    price: 20000,
+    artist: "Claude Monet",
+    dimensiones: "20x24",
+    descripcion: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. ",
+    year: 1875 
+  },
+    {
+    title: "The tomb of Bocklin",
+    image: "images/paintings/ferdinand_keller_thetombofbocklin.jpg",
+    price: 20000,
+    artist: "Ferdinand Keller",
+    dimensiones: "20x24",
+    descripcion: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. ",
+    year: 1902 
+  },
+  {
+    title: "The Kiss",
+    image: "images/paintings/klimt.jpg",
+    price: 20000,
+    artist: "Gustav Klimt",
+    dimensiones: "20x24",
+    descripcion: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. ",
+    year: 1908 
+  },
+    {
     title: "Jacob wrestling with the angel",
     image: "images/paintings/dore2.jpg",
     price: 20000,
@@ -21,7 +48,7 @@ const items = [
     artist: "Maxfield Parrish",
     dimensiones: "20x24",
     descripcion: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. ",
-    year: 1855 
+    year: 1908
 
   },
   {
@@ -136,13 +163,20 @@ function showPrints() {
 
   items.forEach((item, index) => {
     itemsHTML += `
-      <button onclick="viewProduct(${index})" class="print-product">
-            <img src="${item.image}" id="print-image">
-            <div class="print-info">
-                <p class="print-name">${item.title}</p>
-                <p>${item.price} CLP</p>
-            </div>
-      </button>`;
+      <div class="print-product" onclick="viewProduct(${index})">
+      <img src="${item.image}" class="print-image">
+      <div class="print-info">
+        <p class="print-name">${item.title}</p>
+
+        <div class="price-row">
+          <p class="price">${item.price} CLP</p>
+          <button onclick="addToCart(event)" class="add-button">
+            <img src="images/icons/add.png">
+          </button>
+        </div>
+      </div>
+    </div>
+`;
   });
 
   document.getElementById('item-list').innerHTML = itemsHTML;
@@ -218,6 +252,8 @@ function entryFill() {
 }
 
 function addToCart() {
+  event.stopPropagation();
+
   const product = JSON.parse(localStorage.getItem("selectedProduct"));
   if (!product) return;
 
@@ -259,13 +295,23 @@ function displayCart() {
 }
 
 function saveSignInINFO() {
-  let userEmail = document.getElementById("email").value || "" ;
-  let userPasswd = document.getElementById("passwd").value|| "";
-  let userName = document.getElementById("name").value|| "";
-  let userNumber = document.getElementById("number").value|| "";
-  let userAddress = document.getElementById("address").value|| "";
+  let userEmail = document.getElementById("email").value || "";
+  let userPasswd = document.getElementById("passwd").value || "";
+  let userName = document.getElementById("name").value || "";
+  let userNumber = document.getElementById("number").value || "";
+  let userAddress = document.getElementById("address").value || "";
 
-  allUser.push({'email': userEmail, 'passwd': userPasswd, 'name': userName, 'number': userNumber, 'address': userAddress});
+  let allUser = JSON.parse(localStorage.getItem("allUser")) || [];
+
+  allUser.push({
+    email: userEmail,
+    passwd: userPasswd,
+    name: userName,
+    number: userNumber,
+    address: userAddress
+  });
+
+  localStorage.setItem("allUser", JSON.stringify(allUser));
   console.log(allUser);
 
 }
@@ -280,14 +326,8 @@ function showLogIn() {
 
   form.addEventListener("submit", function (e) {
     e.preventDefault();
-    let valid = true; 
 
-    if (!emailInput.value.trim()) valid = false;
-    if (!passwdInput.value.trim()) valid = false;
-
-    if (emailInput && !validateEmail(emailInput)) valid = false;
-    if (passwdInput && !validateLength(passwdInput, 4, 10)) valid = false;
-
+    let allUser = JSON.parse(localStorage.getItem("allUser")) || [];
 
     const email = emailInput.value.trim();
     const passwd = passwdInput.value.trim();
@@ -298,15 +338,19 @@ function showLogIn() {
       alert("Datos ingresados son incorrectos o la cuenta no existe.");
       return;
     }
-    loggedUser = [user]; 
 
+    localStorage.setItem("loggedUser", JSON.stringify(user)); 
     alert("Ha iniciado sesión!");
   });
 }
 
 
+
 function checkoutValidation() {
-  if (loggedUser.length === 0) {
+  const loggedUser = JSON.parse(localStorage.getItem("loggedUser")) || null;
+  const cartItem = JSON.parse(localStorage.getItem("cartItem")) || [];
+
+  if (!loggedUser) {
     alert("Debe iniciar sesión para continuar con la compra.");
     return;
   }
@@ -316,37 +360,35 @@ function checkoutValidation() {
     return;
   }
 
-  const user = loggedUser[0]; 
-  const modal = document.getElementById('purchase-modal');
+  const user = loggedUser;
   const userInfoDiv = document.getElementById('user-info-modal');
   const cartSummary = document.getElementById('cart-summary');
 
   userInfoDiv.innerHTML = `
-    <p>Nombre: ${user.name || "No disponible"}</p>
-    <p>Email: ${user.email}</p>
-    <p>Teléfono: ${user.number || "No disponible"}</p>
-    <p>Dirección: ${user.address || "No disponible"}</p>
+    <p><strong>Nombre:</strong> ${user.name || "No disponible"}</p>
+    <p><strong>Email:</strong> ${user.email}</p>
+    <p><strong>Teléfono:</strong> ${user.number || "No disponible"}</p>
+    <p><strong>Dirección:</strong> ${user.address || "No disponible"}</p>
   `;
 
   let totalAmount = 0;
-  cartItem.forEach(i => totalAmount += parseInt(i['product-price']));
+  cartItem.forEach(item => {
+    totalAmount += parseInt(item.price);
+  });
+
   cartSummary.textContent = `Total a pagar: ${totalAmount} CLP`;
 
-  modal.style.display = "block";
-
-  document.getElementById('close-modal').onclick = () => modal.style.display = "none";
+  const modal = new bootstrap.Modal(document.getElementById('purchaseModal'));
+  modal.show();
 
   document.getElementById('confirm-purchase').onclick = () => {
     alert("Compra realizada con éxito!");
-    cartItem = [];
+    localStorage.removeItem("cartItem");
     displayCart();
-    modal.style.display = "none";
+    modal.hide();
   };
-
-  window.onclick = function(event) {
-    if (event.target == modal) modal.style.display = "none";
-  }
 }
+
 
 
 

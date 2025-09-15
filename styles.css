@@ -2,10 +2,12 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+
+    --primary-color: aliceblue;
 }
 
 body {
-    background-color: rgb(219, 233, 236);
+    background-color:  var(--primary-color);
 }
 
 
@@ -98,7 +100,7 @@ header {
 
 
 .user-options a{
-    background-color: aliceblue;    
+    background-color: var(--primary-color);    
     padding:5px 10px;
     border-radius: 10px;
 }
@@ -120,12 +122,13 @@ header {
 
 footer {
     margin-top: auto;
-    height:20vh;
-    padding:1.2rem 2rem;
+    height:12vh;
+    padding:1.5rem 2rem;
     box-sizing: border-box;
     display: flex;
-    flex-direction: column;
+    justify-content:space-between
 }
+
 
 
 .main-timeline {
@@ -202,24 +205,27 @@ footer {
 .print-product{
     width:240px;
     border:none;
-    padding:1rem;
+    padding:1.3rem;
     text-align: left;
     text-wrap: wrap;
-    background-color: rgb(219, 233, 236);
+    background-image:linear-gradient( white, var(--primary-color));
     border-radius:10px;
-
+    display:flex;
+    flex-direction: column;
 }
 
 .print-product img {
     width: 200px;
-    height:240px;
+    aspect-ratio: 4/5;
     object-fit: cover;
+    margin: 0 auto;
 }
 
 
 .print-info{
     margin-top:0.5rem;
     line-height: 1;
+    
 }
 
 .scrolling-buttons{
@@ -514,4 +520,64 @@ footer {
 
 #precio{
     font-weight: 600;
+}
+
+
+
+
+.catalog-items{
+    display:flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    width:inherit;
+    gap:2rem;
+
+    
+}
+
+.title-banner{
+    width:100%;
+    margin: 0rem 0rem 1rem 0rem;
+    text-align:center;    
+}
+
+.title-banner h1{
+    font-weight:100;
+
+}
+
+.add-button{
+    border:none;
+    background-color:transparent;
+}
+
+.add-button img{
+    width:25px;
+    height:25px;
+}
+
+
+.price-row {
+  display: flex;
+  justify-content: space-between; 
+}
+
+
+.social-media {
+    padding-top:1rem;
+    display:flex;
+    gap:0.5rem;
+    height:20px;
+}
+
+.social-media img {
+    width:18px;
+    height:18px;
+
+}
+
+
+.footer-nav {
+    display:flex;
+    flex-direction:column;
 }

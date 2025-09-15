@@ -16,7 +16,7 @@
 
 <body>
     <main>
-                <header>
+        <header>
             <div class="title-logo">
                 <button onclick="window.location.href='index.html'"><img src="images/icons/lunaries.png">
                     <h1>lunaries prints</h1> 
@@ -25,7 +25,8 @@
                 <nav class="user-options">
                     <a href="sign_in.html">registrate</a>
                     <a href="log_in.html">inicia sesión</a>
-                    <button onclick="displayCart()"><img src="images/icons/cart.png"></button>
+                    <button onclick="window.location.href='cart.html'"><img src="images/icons/cart.png"></button>
+
                 </nav>
             </div>
 
@@ -41,9 +42,16 @@
         </header>
 
         <div class="main-timeline">
-          <div class="blogs-display">
             
-          </div>
+            <div class="title-banner">
+                <h1>Todos nuestros productos</h1>
+            </div>
+
+            <div class="product-catalog">
+                <div class="catalog-items" id="item-list">
+
+                </div>
+            </div>
 
         </div>
 
